@@ -1,0 +1,7 @@
+{
+  "case": "approved-order-dispatch",
+  "expected": {
+    "requires_warehouse_confirmation": true,
+    "never_mark_shipped_automatically": true
+  }
+}

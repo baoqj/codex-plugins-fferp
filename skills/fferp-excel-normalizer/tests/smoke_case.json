@@ -1,0 +1,7 @@
+{
+  "case": "merged-header-order-sheet",
+  "expected": {
+    "never_overwrite_original": true,
+    "requires_validation_report": true
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "case": "partial-payment",
+  "expected": {
+    "match_type": "partial_match",
+    "requires_approval": true
+  }
+}

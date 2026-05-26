@@ -1,0 +1,12 @@
+.git
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+.env
+data/database/*.sqlite
+data/logs/*.jsonl
+data/inbox/whatsapp/*.json
+output/approvals/*
+output/drafts/*
+output/reports/*

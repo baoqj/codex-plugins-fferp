@@ -1,0 +1,7 @@
+{
+  "case": "daily-sales-report",
+  "expected": {
+    "includes_source_references": true,
+    "lists_missing_data": true
+  }
+}

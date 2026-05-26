@@ -1,0 +1,7 @@
+{
+  "case": "low-confidence-alias",
+  "expected": {
+    "needs_review": true,
+    "minimum_confidence_threshold": 0.85
+  }
+}

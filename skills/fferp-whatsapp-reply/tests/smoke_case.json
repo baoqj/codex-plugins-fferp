@@ -1,0 +1,7 @@
+{
+  "case": "complaint-message",
+  "expected": {
+    "risk_level": "high",
+    "requires_approval": true
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "FFERP product matcher"
+  short_description: "Safe ERP workflow for FoodFactory sales"
+  default_prompt: "Use $fferp-product-matcher to complete this FFERP workflow with drafts and approval logs."

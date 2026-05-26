@@ -1,0 +1,5 @@
+{
+  "report_type": "daily_sales",
+  "period": "2026-05-26",
+  "sources": ["data/transactions/sales_orders.csv", "data/logs/action_log.jsonl"]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["report_type", "period", "output_files", "source_files", "abnormal_records"],
+  "properties": {
+    "report_type": {"type": "string"},
+    "period": {"type": "string"},
+    "output_files": {"type": "array", "items": {"type": "string"}},
+    "source_files": {"type": "array", "items": {"type": "string"}},
+    "abnormal_records": {"type": "array", "items": {"type": "object"}}
+  }
+}

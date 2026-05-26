@@ -1,0 +1,4 @@
+{
+  "draft_order": "output/drafts/orders/draft_order_example.json",
+  "inventory_balance": "data/transactions/inventory_balance.csv"
+}

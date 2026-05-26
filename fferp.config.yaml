@@ -1,0 +1,33 @@
+app:
+  name: FFERP
+  timezone: America/Toronto
+
+runtime:
+  data_dir: ./data
+  output_dir: ./output
+  approval_mode: manual
+  auto_reply_low_risk: false
+  whatsapp_send_enabled: false
+
+queue:
+  retry_limit: 3
+  worker_sleep_seconds: 2
+
+safety:
+  product_match_threshold: 0.85
+  require_approval_for:
+    - send_quotation
+    - confirm_order
+    - reserve_stock
+    - deduct_stock
+    - create_delivery_dispatch
+    - confirm_payment
+    - send_payment_reminder
+    - approve_discount
+    - approve_credit
+    - handle_complaint
+    - promise_refund
+    - promise_compensation
+    - change_master_data
+    - delete_records
+    - send_bulk_whatsapp

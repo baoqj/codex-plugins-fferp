@@ -1,0 +1,12 @@
+{
+  "name": "fferp-plugin-suite",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FFERP Codex plugin suite and Python service wrapper.",
+  "scripts": {
+    "test": "python3 -m pytest tests",
+    "api": "uvicorn service.api.whatsapp_webhook:app --host 0.0.0.0 --port 8000",
+    "worker": "python3 -m service.workers.message_processor --loop",
+    "bootstrap": "python3 -m scripts.common.bootstrap_data"
+  }
+}

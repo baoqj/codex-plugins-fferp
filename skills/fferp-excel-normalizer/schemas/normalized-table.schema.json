@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["domain", "source_file", "output_file", "row_count", "issues"],
+  "properties": {
+    "domain": {"type": "string"},
+    "source_file": {"type": "string"},
+    "output_file": {"type": "string"},
+    "row_count": {"type": "integer", "minimum": 0},
+    "issues": {"type": "array", "items": {"type": "object"}},
+    "needs_review": {"type": "boolean"}
+  }
+}

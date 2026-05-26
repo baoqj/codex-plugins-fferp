@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["status", "source", "source_message_id", "items", "needs_review"],
+  "properties": {
+    "status": {"const": "draft_pending_approval"},
+    "source": {"type": "string"},
+    "source_message_id": {"type": "string"},
+    "customer_id": {"type": ["string", "null"]},
+    "items": {"type": "array", "items": {"type": "object"}},
+    "needs_review": {"type": "boolean"},
+    "raw_text": {"type": ["string", "null"]}
+  }
+}

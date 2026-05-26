@@ -1,0 +1,4 @@
+interface:
+  display_name: "FFERP delivery dispatcher"
+  short_description: "Safe ERP workflow for FoodFactory sales"
+  default_prompt: "Use $fferp-delivery-dispatcher to complete this FFERP workflow with drafts and approval logs."

@@ -1,0 +1,40 @@
+{
+  "name": "fferp",
+  "version": "0.1.0",
+  "description": "File-first Codex-powered ERP automation for WhatsApp sales, order drafts, approvals, inventory checks, payments, and reports.",
+  "author": {
+    "name": "FoodFactory",
+    "email": "ops@example.com",
+    "url": "https://example.com/"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "erp",
+    "sales",
+    "whatsapp",
+    "orders",
+    "inventory",
+    "approval",
+    "codex-skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "FFERP",
+    "shortDescription": "Codex-powered sales ERP workflows",
+    "longDescription": "Run file-first ERP workflows for WhatsApp sales intake, order extraction, inventory checking, reply drafts, delivery dispatch, payment reconciliation, and reports with human approval controls.",
+    "developerName": "FoodFactory",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://example.com/",
+    "privacyPolicyURL": "https://example.com/privacy",
+    "termsOfServiceURL": "https://example.com/terms",
+    "defaultPrompt": [
+      "Use FFERP to process WhatsApp sales messages and create approval-ready drafts"
+    ],
+    "brandColor": "#155E75",
+    "screenshots": []
+  }
+}

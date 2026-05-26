@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["order_id", "delivery_order_file", "warehouse_instruction_file", "requires_approval"],
+  "properties": {
+    "order_id": {"type": "string"},
+    "delivery_order_file": {"type": "string"},
+    "warehouse_instruction_file": {"type": "string"},
+    "customer_notice_draft_file": {"type": "string"},
+    "requires_approval": {"type": "boolean"}
+  }
+}

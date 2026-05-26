@@ -1,0 +1,5 @@
+{
+  "raw_items": ["tomato sauce 12 case", "premium noodle x 6"],
+  "product_master": "data/master/products.csv",
+  "threshold": 0.85
+}

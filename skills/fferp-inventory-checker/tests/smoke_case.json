@@ -1,0 +1,7 @@
+{
+  "case": "insufficient-stock",
+  "expected": {
+    "never_deduct_inventory": true,
+    "requires_approval": true
+  }
+}

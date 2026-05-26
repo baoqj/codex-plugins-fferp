@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["message_id", "intent", "risk_level", "reply_draft", "requires_approval"],
+  "properties": {
+    "message_id": {"type": "string"},
+    "intent": {"type": "string"},
+    "risk_level": {"enum": ["low", "medium", "high"]},
+    "reply_draft": {"type": "string"},
+    "requires_approval": {"type": "boolean"}
+  }
+}

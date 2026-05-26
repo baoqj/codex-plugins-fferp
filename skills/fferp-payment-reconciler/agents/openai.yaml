@@ -1,0 +1,4 @@
+interface:
+  display_name: "FFERP payment reconciler"
+  short_description: "Safe ERP workflow for FoodFactory sales"
+  default_prompt: "Use $fferp-payment-reconciler to complete this FFERP workflow with drafts and approval logs."

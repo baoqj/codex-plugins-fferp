@@ -1,0 +1,7 @@
+{
+  "case": "whatsapp-order-request",
+  "expected": {
+    "status": "draft_pending_approval",
+    "requires_approval": true
+  }
+}

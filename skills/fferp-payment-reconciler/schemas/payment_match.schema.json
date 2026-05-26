@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["payment_id", "match_type", "status", "requires_approval"],
+  "properties": {
+    "payment_id": {"type": "string"},
+    "order_id": {"type": ["string", "null"]},
+    "customer_id": {"type": ["string", "null"]},
+    "match_type": {"enum": ["exact_match", "likely_match", "partial_match", "conflict", "unknown"]},
+    "status": {"type": "string"},
+    "requires_approval": {"type": "boolean"}
+  }
+}

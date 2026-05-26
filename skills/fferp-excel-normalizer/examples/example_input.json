@@ -1,0 +1,5 @@
+{
+  "source_file": "data/inbox/customer_orders.xlsx",
+  "domain": "sales_orders",
+  "output_dir": "data/inbox/normalized"
+}

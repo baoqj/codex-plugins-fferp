@@ -1,0 +1,60 @@
+services:
+  fferp-api:
+    build: .
+    command: uvicorn service.api.whatsapp_webhook:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment: &fferp-env
+      FFERP_DATA_DIR: /app/data
+      FFERP_OUTPUT_DIR: /app/output
+      FFERP_APPROVAL_MODE: ${FFERP_APPROVAL_MODE:-manual}
+      FFERP_AUTO_REPLY_LOW_RISK: ${FFERP_AUTO_REPLY_LOW_RISK:-false}
+      FFERP_WHATSAPP_SEND_ENABLED: ${FFERP_WHATSAPP_SEND_ENABLED:-false}
+      WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN:-}
+      WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN:-}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_BUSINESS_ACCOUNT_ID: ${WHATSAPP_BUSINESS_ACCOUNT_ID:-}
+      WHATSAPP_APP_SECRET: ${WHATSAPP_APP_SECRET:-}
+      WHATSAPP_GRAPH_API_VERSION: ${WHATSAPP_GRAPH_API_VERSION:-v25.0}
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped
+
+  fferp-worker:
+    build: .
+    command: python -m service.workers.message_processor --loop
+    environment: *fferp-env
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped
+
+  fferp-scheduler:
+    build: .
+    command: python -m service.scheduler.scheduler --loop --interval 86400
+    environment: *fferp-env
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped
+
+  fferp-file-watcher:
+    build: .
+    command: python -m service.file_watcher.watcher --loop --interval 5
+    environment: *fferp-env
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped
+
+  fferp-mcp:
+    build: .
+    command: uvicorn service.mcp.http_server:app --host 0.0.0.0 --port 8765
+    ports:
+      - "8765:8765"
+    environment: *fferp-env
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    restart: unless-stopped

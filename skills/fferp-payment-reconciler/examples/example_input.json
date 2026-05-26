@@ -1,0 +1,5 @@
+{
+  "bank_csv": "data/inbox/bank.csv",
+  "receivables": "data/transactions/receivables.csv",
+  "sales_orders": "data/transactions/sales_orders.csv"
+}
