@@ -77,6 +77,7 @@ def _process_whatsapp_message(conn, task: dict[str, Any]) -> dict[str, Any]:
             "message_id": message_id,
             "from_phone": message.get("from_phone"),
             "message_text": message.get("text"),
+            "draft_content": _read_text_file(draft_file),
             "intent": intent.intent,
             "confidence": intent.confidence,
         },
@@ -202,6 +203,15 @@ def _skill_for_intent(intent: str) -> str:
 
 def _safe_filename(value: str) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "_", value)
+
+
+def _read_text_file(path: str | None) -> str | None:
+    if not path:
+        return None
+    try:
+        return Path(path).read_text(encoding="utf-8")
+    except OSError:
+        return None
 
 
 def main() -> None:

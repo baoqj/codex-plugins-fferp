@@ -1,0 +1,129 @@
+previews:
+  generation: manual
+
+projects:
+  - name: FF-ERP
+    environments:
+      - name: production
+        databases:
+          - name: ff-erp-postgres
+            databaseName: fferp
+            user: fferp
+            postgresMajorVersion: "18"
+            ipAllowList: []
+
+        services:
+          - type: web
+            name: ff-erp-api
+            runtime: docker
+            plan: starter
+            region: oregon
+            dockerfilePath: ./Dockerfile
+            dockerContext: .
+            dockerCommand: sh -c "uvicorn service.api.whatsapp_webhook:app --host 0.0.0.0 --port ${PORT:-8000}"
+            healthCheckPath: /health
+            maxShutdownDelaySeconds: 60
+            envVars:
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: ff-erp-postgres
+                  property: connectionString
+              - key: FFERP_DATA_DIR
+                value: /tmp/fferp/data
+              - key: FFERP_OUTPUT_DIR
+                value: /tmp/fferp/output
+              - key: FFERP_APPROVAL_MODE
+                value: manual
+              - key: FFERP_AUTO_REPLY_LOW_RISK
+                value: "false"
+              - key: FFERP_WHATSAPP_SEND_ENABLED
+                value: "false"
+              - key: WHATSAPP_GRAPH_API_VERSION
+                value: v25.0
+              - key: WHATSAPP_VERIFY_TOKEN
+                sync: false
+              - key: WHATSAPP_ACCESS_TOKEN
+                sync: false
+              - key: WHATSAPP_PHONE_NUMBER_ID
+                sync: false
+              - key: WHATSAPP_BUSINESS_ACCOUNT_ID
+                sync: false
+              - key: WHATSAPP_APP_SECRET
+                sync: false
+              - key: FFERP_API_TOKEN
+                generateValue: true
+
+          - type: web
+            name: ff-erp-mcp
+            runtime: docker
+            plan: starter
+            region: oregon
+            dockerfilePath: ./Dockerfile
+            dockerContext: .
+            dockerCommand: sh -c "uvicorn service.mcp.http_server:app --host 0.0.0.0 --port ${PORT:-8765}"
+            healthCheckPath: /health
+            maxShutdownDelaySeconds: 60
+            envVars:
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: ff-erp-postgres
+                  property: connectionString
+              - key: FFERP_DATA_DIR
+                value: /tmp/fferp/data
+              - key: FFERP_OUTPUT_DIR
+                value: /tmp/fferp/output
+              - key: FFERP_APPROVAL_MODE
+                value: manual
+              - key: FFERP_AUTO_REPLY_LOW_RISK
+                value: "false"
+              - key: FFERP_WHATSAPP_SEND_ENABLED
+                value: "false"
+              - key: FFERP_API_TOKEN
+                fromService:
+                  type: web
+                  name: ff-erp-api
+                  envVarKey: FFERP_API_TOKEN
+
+          - type: worker
+            name: ff-erp-worker
+            runtime: docker
+            plan: starter
+            region: oregon
+            dockerfilePath: ./Dockerfile
+            dockerContext: .
+            dockerCommand: python -m service.workers.message_processor --loop --sleep 2
+            maxShutdownDelaySeconds: 120
+            envVars:
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: ff-erp-postgres
+                  property: connectionString
+              - key: FFERP_DATA_DIR
+                value: /tmp/fferp/data
+              - key: FFERP_OUTPUT_DIR
+                value: /tmp/fferp/output
+              - key: FFERP_APPROVAL_MODE
+                value: manual
+              - key: FFERP_AUTO_REPLY_LOW_RISK
+                value: "false"
+              - key: FFERP_WHATSAPP_SEND_ENABLED
+                value: "false"
+
+          - type: cron
+            name: ff-erp-daily-scheduler
+            runtime: docker
+            plan: starter
+            region: oregon
+            schedule: "0 9 * * *"
+            dockerfilePath: ./Dockerfile
+            dockerContext: .
+            dockerCommand: python -m service.scheduler.scheduler --interval 86400
+            envVars:
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: ff-erp-postgres
+                  property: connectionString
+              - key: FFERP_DATA_DIR
+                value: /tmp/fferp/data
+              - key: FFERP_OUTPUT_DIR
+                value: /tmp/fferp/output

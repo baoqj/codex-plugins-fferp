@@ -109,6 +109,22 @@ Services:
 - `fferp-file-watcher`: `data/inbox/` polling watcher.
 - `fferp-mcp`: local Codex interaction bridge on port `8765`.
 
+## Render SaaS Deployment
+
+The first SaaS deployment target is Render project `FF-ERP`.
+
+Use `render.yaml` from this repository root to create the Blueprint. It provisions:
+
+- `ff-erp-api`
+- `ff-erp-mcp`
+- `ff-erp-worker`
+- `ff-erp-daily-scheduler`
+- `ff-erp-postgres`
+
+The production services share Render Postgres through `DATABASE_URL`. Local development keeps using SQLite when `DATABASE_URL` is not set.
+
+See `docs/render-deployment.md` for the deployment checklist and required Meta WhatsApp environment variables.
+
 ## Direct Codex-Style Commands
 
 These commands back the common direct Codex requests:

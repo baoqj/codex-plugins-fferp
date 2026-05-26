@@ -3,7 +3,7 @@ from __future__ import annotations
 import sqlite3
 from typing import Any
 
-from scripts.common.db import decode_json, encode_json, row_to_dict, touch_task
+from scripts.common.db import decode_json, encode_json, is_integrity_error, is_postgres_connection, row_to_dict, touch_task
 from scripts.common.ids import new_id, utc_now_iso
 
 
@@ -52,7 +52,10 @@ def create_task(
             ),
         )
         conn.commit()
-    except sqlite3.IntegrityError:
+    except Exception as exc:
+        if not is_integrity_error(exc):
+            raise
+        conn.rollback()
         row = conn.execute("SELECT * FROM tasks WHERE idempotency_key = ?", (idempotency_key,)).fetchone()
         existing = row_to_dict(row)
         if existing is None:
@@ -131,14 +134,25 @@ def upsert_whatsapp_message(
     status: str = "received",
 ) -> bool:
     now = utc_now_iso()
-    cursor = conn.execute(
+    if is_postgres_connection(conn):
+        insert_sql = """
+        INSERT INTO whatsapp_messages (
+            message_id, from_phone, customer_id, direction, message_type, text,
+            raw_payload_file, status, created_at, updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (message_id) DO NOTHING
         """
+    else:
+        insert_sql = """
         INSERT OR IGNORE INTO whatsapp_messages (
             message_id, from_phone, customer_id, direction, message_type, text,
             raw_payload_file, status, created_at, updated_at
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """,
+        """
+    cursor = conn.execute(
+        insert_sql,
         (
             message["message_id"],
             message.get("from_phone"),

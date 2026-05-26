@@ -10,8 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN python -m scripts.common.bootstrap_data
-
 EXPOSE 8000 8765
 
 CMD ["uvicorn", "service.api.whatsapp_webhook:app", "--host", "0.0.0.0", "--port", "8000"]

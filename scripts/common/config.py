@@ -20,7 +20,9 @@ class Settings:
     plugin_root: Path
     data_dir: Path
     output_dir: Path
+    database_url: str | None
     database_path: Path
+    api_token: str | None
     approval_mode: str
     auto_reply_low_risk: bool
     whatsapp_send_enabled: bool
@@ -44,7 +46,9 @@ def get_settings() -> Settings:
         plugin_root=PLUGIN_ROOT,
         data_dir=data_dir,
         output_dir=output_dir,
+        database_url=os.getenv("DATABASE_URL"),
         database_path=data_dir / "database" / "fferp.sqlite",
+        api_token=os.getenv("FFERP_API_TOKEN"),
         approval_mode=os.getenv("FFERP_APPROVAL_MODE", "manual"),
         auto_reply_low_risk=_bool_env("FFERP_AUTO_REPLY_LOW_RISK", False),
         whatsapp_send_enabled=_bool_env("FFERP_WHATSAPP_SEND_ENABLED", False),
