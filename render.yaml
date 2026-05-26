@@ -10,6 +10,8 @@ projects:
             databaseName: fferp
             user: fferp
             postgresMajorVersion: "18"
+            plan: basic_256mb
+            diskSizeGB: 1
             ipAllowList: []
 
         services:
