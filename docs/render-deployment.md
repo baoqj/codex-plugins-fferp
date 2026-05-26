@@ -59,6 +59,9 @@ export FFERP_API_TOKEN=<Render ff-erp-api generated value>
 curl https://ff-erp-api.onrender.com/status \
   -H "Authorization: Bearer $FFERP_API_TOKEN"
 
+curl https://ff-erp-api.onrender.com/admin/status \
+  -H "Authorization: Bearer $FFERP_API_TOKEN"
+
 curl https://ff-erp-api.onrender.com/admin/whatsapp/config \
   -H "Authorization: Bearer $FFERP_API_TOKEN"
 
