@@ -54,6 +54,11 @@ def status() -> dict[str, Any]:
     return {"tasks": counts, "approvals": approvals}
 
 
+@app.get("/admin/status", dependencies=[Depends(require_api_token)])
+def admin_status() -> dict[str, Any]:
+    return status()
+
+
 @app.get("/admin/whatsapp/config", dependencies=[Depends(require_api_token)])
 def whatsapp_config_status() -> dict[str, Any]:
     settings = get_settings()
